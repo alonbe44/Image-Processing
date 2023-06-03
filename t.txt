@@ -1,0 +1,70 @@
+rm -rf *.o ebcEcho ebcComp
+gcc -c -std=c99 -Wall -Werror -g ebcEcho.c -o ebcEcho.o
+gcc  ebcEcho.o -o ebcEcho
+gcc -c -std=c99 -Wall -Werror -g ebcComp.c -o ebcComp.o
+gcc  ebcComp.o -o ebcComp
+-------------- TESTING ebcEcho --------------
+Usage
+FAILED: expected 0 got 1
+PASSED: expected Usage: ebcEcho file1 file2 got Usage: ebcEcho file1 file2
+
+Bad Args
+PASSED: expected 1 got 1
+PASSED: expected ERROR: Bad Arguments got ERROR: Bad Arguments
+
+Bad Filename
+PASSED: expected 2 got 2
+PASSED: expected ERROR: Bad File Name (1) got ERROR: Bad File Name (1)
+
+Bad Permissions
+PASSED: expected 2 got 2
+PASSED: expected ERROR: Bad File Name (tests/data/ebc_data/bad_perms.ebc) got ERROR: Bad File Name (tests/data/ebc_data/bad_perms.ebc)
+
+Bad Magic Number
+FAILED: expected 3 got 6
+FAILED: expected ERROR: Bad Magic Number (tests/data/ebc_data/bad_mn.ebc) got q q 360 250 ERROR: Bad Data (tests/data/ebc_data/bad_mn.ebc)
+
+Bad Dimensions (big)
+PASSED: expected 4 got 4
+FAILED: expected ERROR: Bad Dimensions (tests/data/ebc_data/bad_dims_high.ebc) got e c 360 -759702766 ERROR: Bad Dimensions (tests/data/ebc_data/bad_dims_high.ebc)
+
+Bad Dimensions (small)
+PASSED: expected 4 got 4
+FAILED: expected ERROR: Bad Dimensions (tests/data/ebc_data/bad_dims_low.ebc) got e c -1 250 ERROR: Bad Dimensions (tests/data/ebc_data/bad_dims_low.ebc)
+
+Bad Malloc (dims too high to allocate)
+PASSED: expected 5 got 5
+FAILED: expected ERROR: Image Malloc Failed got e c 128000 128000 ERROR: Image Malloc Failed
+
+Bad Data (too high)
+PASSED: expected 6 got 6
+FAILED: expected ERROR: Bad Data (tests/data/ebc_data/bad_data_high.ebc) got e c 360 250 ERROR: Bad Data (tests/data/ebc_data/bad_data_high.ebc)
+
+Bad Data (too low)
+PASSED: expected 6 got 6
+FAILED: expected ERROR: Bad Data (tests/data/ebc_data/bad_data_low.ebc) got e c 360 250 ERROR: Bad Data (tests/data/ebc_data/bad_data_low.ebc)
+
+Bad Data (too much)
+PASSED: expected 6 got 6
+FAILED: expected ERROR: Bad Data (tests/data/ebc_data/bad_data_much.ebc) got e c 360 250 ERROR: Bad Data (tests/data/ebc_data/bad_data_much.ebc)
+
+Bad Data (too few)
+PASSED: expected 6 got 6
+FAILED: expected ERROR: Bad Data (tests/data/ebc_data/bad_data_little.ebc) got e c 360 250 ERROR: Bad Data (tests/data/ebc_data/bad_data_little.ebc)
+
+Bad Output (no write permissions)
+FAILED: expected 8 got 6
+FAILED: expected ERROR: Bad Output(tests/data/bad.out) got e c 360 250 ERROR: Bad Data (tests/data/ebc_data/good.ebc)
+ALTERNATIVE - Bad File Name
+FAILED: expected 2 got 6
+FAILED: expected ERROR: Bad File Name (tests/data/bad.out) got e c 360 250 ERROR: Bad Data (tests/data/ebc_data/good.ebc)
+
+Testing ebcEcho Functionality
+FAILED: expected 0 got 6
+FAILED: expected ECHOED got e c 360 250 ERROR: Bad Data (tests/data/ebc_data/good.ebc)
+FILES ARE IDENTICAL
+------------------------------------------------------------------------------
+You passed 14 out of 28
+IMPORTANT: this is a count of tests passed - it is not your final grade.
+------------------------------------------------------------------------------
+rm -rf *.o ebcEcho ebcComp
